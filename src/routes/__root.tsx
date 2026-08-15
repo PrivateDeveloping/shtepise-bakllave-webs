@@ -111,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="sq">
       <head>
         <HeadContent />
       </head>
@@ -128,8 +128,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <CartProvider>
+        <div className="paper flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+          <CartDrawer />
+        </div>
+        <Toaster position="top-center" />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
+
