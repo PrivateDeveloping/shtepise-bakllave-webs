@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FaleminderitRouteImport } from './routes/faleminderit'
+import { Route as PorositRouteImport } from './routes/porosit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaleminderitRoute = FaleminderitRouteImport.update({
+  id: '/faleminderit',
+  path: '/faleminderit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PorositRoute = PorositRouteImport.update({
+  id: '/porosit',
+  path: '/porosit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/faleminderit': typeof FaleminderitRoute
+  '/porosit': typeof PorositRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/faleminderit': typeof FaleminderitRoute
+  '/porosit': typeof PorositRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/faleminderit': typeof FaleminderitRoute
+  '/porosit': typeof PorositRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/faleminderit' | '/porosit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/faleminderit' | '/porosit'
+  id: '__root__' | '/' | '/faleminderit' | '/porosit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FaleminderitRoute: typeof FaleminderitRoute
+  PorositRoute: typeof PorositRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faleminderit': {
+      id: '/faleminderit'
+      path: '/faleminderit'
+      fullPath: '/faleminderit'
+      preLoaderRoute: typeof FaleminderitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/porosit': {
+      id: '/porosit'
+      path: '/porosit'
+      fullPath: '/porosit'
+      preLoaderRoute: typeof PorositRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FaleminderitRoute: FaleminderitRoute,
+  PorositRoute: PorositRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
