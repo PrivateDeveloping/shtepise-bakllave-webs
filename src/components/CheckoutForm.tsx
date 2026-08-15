@@ -58,9 +58,11 @@ export function CheckoutForm() {
           );
           cart.clear();
           navigate({ to: "/faleminderit" });
-        } catch {
+        } catch (err) {
+          console.error("order failed", err);
           toast.error("Porosia nuk u dërgua. Provo përsëri ose na merr në telefon.");
         } finally {
+
           setSending(false);
         }
       }}
