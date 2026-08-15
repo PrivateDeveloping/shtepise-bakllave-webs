@@ -8,7 +8,7 @@ const orderSchema = z.object({
   city: z.string().min(2).max(60),
   address: z.string().min(3).max(200),
   date: z.string().min(4).max(20),
-  time: z.string().max(20),
+  time: z.string().max(60),
   notes: z.string().max(500).optional().or(z.literal("")),
   items: z
     .array(
